@@ -1,9 +1,9 @@
-
 //The Path module provides a way of working with directories and file paths.
-const path = require("path")
+const path = require("path");
 // Adding routes
-module.exports = function (app) {
+module.exports = (app) => {
 
+    // get request
     app.get("/", (req, res) => {
         res.sendFile((path.join)(__dirname, "..public/index.html"));
     });
@@ -18,3 +18,4 @@ module.exports = function (app) {
     });
 
 }
+

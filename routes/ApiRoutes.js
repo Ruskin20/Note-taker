@@ -1,33 +1,40 @@
-const fs = require("fs")
-// db.json file will be used to store and retrieve notes using the fs module
-const db = "..db/db.json"
-const util = require('util');
-const { request } = require("express");
 
+const path = require("path");
+const newNotes = require("../db/db.json");
+const fs = require("fs");
+const uniqID = require("uniqid");
 
-// Exports function to use on different files
-module.exports = function (app) {
-    const userNotes = []
-    // API GET Requests
-    const asyncWriteFile = util.promisify(fs.writeFile)
-    app.get("/api/notes", function (req, res) {
-        fs.readFile(db, "utf8", function (err, data) {
-            userNotes = (JSON.parse(data));
-            console.log(userNotes)
-            if (err) throw err;
-            //Do operation on data that generates data
-            return userNotes;
-        });
-        res.json(db);
+const app = require('express').Router();
+
+//ROUTING
+module.exports = (app) => {
+    app.get("/api/notes", (req, res) => {
+        res.json(newNotes);
     });
-
 
     app.post("/api/notes", (req, res) => {
-        console.log(req.body)
-        asyncWriteFile(db, JSON.stringify(req.body), function (err, data) {
-            userNotes.push(data)
-            if (err) console.log(err);
-            res.json(userNotes)
-        });
+        req.body.id = uniqID();
+        const notE = req.body;
+        console.log("You added the following note", newNotes);
+        newNotes.push(notE);
+        fs.writeFileSync(
+            path.join(__dirname, "../db/db.json"),
+            JSON.stringify(newNotes)
+        );
+        res.json(notE);
     });
-}
+
+    app.delete("/api/notes/:id", function (req, res) {
+        const id = req.params.id;
+        for (i = 0; i < newNotes.length; i++) {
+            if (newNotes[i].id === id) {
+                newNotes.splice(i, 1);
+            }
+        }
+        fs.writeFileSync(
+            path.join(__dirname, "../db/db.json"),
+            JSON.stringify(newNotes)
+        );
+        res.send(newNotes);
+    });
+};
