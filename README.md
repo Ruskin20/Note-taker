@@ -26,6 +26,7 @@ This app is a digital node made with Express.JS backend as it's main theme. The 
 
 ## Links 
 You could access the deployed application by clicking on the link below. 
+[Heroku URL](https://notetaker1020.herokuapp.com/)
 
 [Github Code URL](https://github.com/Ruskin20/Note-taker)
 
