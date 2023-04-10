@@ -1,10 +1,7 @@
-
 const path = require("path");
-const newNotes = require("../db/db.json");
 const fs = require("fs");
-const uniqID = require("uniqid");
-
-const app = require('express').Router();
+const giveId = require("uniqid");
+const newNotes = require("../db/db.json");
 
 //ROUTING
 module.exports = (app) => {
@@ -13,10 +10,11 @@ module.exports = (app) => {
     });
 
     app.post("/api/notes", (req, res) => {
-        req.body.id = uniqID();
+        req.body.id = giveId();
         const notE = req.body;
         console.log("You added the following note", newNotes);
         newNotes.push(notE);
+
         fs.writeFileSync(
             path.join(__dirname, "../db/db.json"),
             JSON.stringify(newNotes)
