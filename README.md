@@ -31,5 +31,5 @@ You could access the deployed application by clicking on the link below.
 [Github Code URL](https://github.com/Ruskin20/Note-taker)
 
 ## License
-[MIT LICENSE](https://raw.githubusercontent.com/Ruskin20/Work-Day-Scheduler/master/LICENSE)
+[MIT LICENSE](https://raw.githubusercontent.com/Ruskin20/Note-taker/master/LICENSE)
 
